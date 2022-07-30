@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistCombineReducers } from 'redux-persist';
 import global from './global';
-import user from './user';
 
 const persistConfig = {
   key: 'root',
@@ -9,7 +8,6 @@ const persistConfig = {
 };
 
 const reducer = persistCombineReducers(persistConfig, {
-  user,
   global,
 });
 

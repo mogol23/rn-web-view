@@ -2,7 +2,6 @@ import axios, { AxiosResponse } from 'axios';
 import { toast } from '.';
 import { config } from './../constans';
 import redux from './../redux';
-import { auth } from './../api';
 
 export interface errorResponse {
   code: Number;
@@ -38,12 +37,11 @@ AXIOS.interceptors.response.use(
       error.response.data?.success == false ||
       'error' in error.response.data
     ) {
-      toast('error', error.response.data?.error, undefined);
+      toast('error', error.response.data?.error);
     }
     // console.error('service', error)
     switch (error.response.status) {
       case 401:
-        auth.signout();
         break;
     }
     return Promise.reject(error);
