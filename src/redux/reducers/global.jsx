@@ -10,6 +10,7 @@ const {
 const initialState = {
   fetching: false,
   onboard: false,
+  cookies: null
 };
 
 export default function reducer(state = initialState, action) {

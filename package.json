@@ -10,10 +10,12 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "ios:prebuild": "yarn && watchman watch-del-all && cd ios && pod install && cd ..",
     "android:prebuild": "yarn && watchman watch-del-all && cd android && ./gradlew clean && cd ..",
-    "android:bundle:release": "yarn android:prebuild && npx jetify && cd android && ./gradlew bR && cd .."
+    "android:bundle:release": "yarn android:prebuild && npx jetify && cd android && ./gradlew bR && cd ..",
+    "android:apk:release": "yarn android:prebuild && npx jetify && cd android && ./gradlew assembleRelease && cd .."
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.14",
+    "@react-native-community/cookies": "^5.0.1",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
@@ -30,6 +32,7 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-webview": "^11.23.0",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
