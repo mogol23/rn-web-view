@@ -1,5 +1,4 @@
 apply plugin: "com.android.application"
-apply plugin: "com.google.gms.google-services"
 
 import com.android.build.OutputFile
 
@@ -258,10 +257,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-
-    implementation 'com.google.firebase:firebase-messaging:20.0.0'
-    implementation project(':react-native-pusher-push-notifications')
-    implementation 'com.pusher:push-notifications-android:1.4.4'
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
