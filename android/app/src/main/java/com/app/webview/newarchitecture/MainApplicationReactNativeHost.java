@@ -1,4 +1,4 @@
-package com.ghinaa.newarchitecture;
+package com.app.webview.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.ghinaa.BuildConfig;
-import com.ghinaa.newarchitecture.components.MainComponentsRegistry;
-import com.ghinaa.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.app.webview.BuildConfig;
+import com.app.webview.newarchitecture.components.MainComponentsRegistry;
+import com.app.webview.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
