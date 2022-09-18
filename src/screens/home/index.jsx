@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { request, PERMISSIONS } from 'react-native-permissions';
 import CookieManager from '@react-native-cookies/cookies';
 import { connect } from 'react-redux';
 import { APP_URL } from '@env';
 import { globalActions } from '../../redux/actions';
-import {  url, cookies } from '../../helpers';
+import { url, cookies } from '../../helpers';
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await request(PERMISSIONS.ANDROID.CAMERA);
+
     const { global } = this.props;
     try {
       const cookiesString = cookies.toString(global.cookies);
