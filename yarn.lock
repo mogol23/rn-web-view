@@ -6893,6 +6893,11 @@ react-native-keyboard-aware-scroll-view@^0.9.5:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
+react-native-pusher-push-notifications@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/react-native-pusher-push-notifications/-/react-native-pusher-push-notifications-2.5.2.tgz#010d61fcdfaf5042fe84d73b131a2d9a80efdf92"
+  integrity sha512-yMC0fysxHjZuhEhPmWzpiGowDqjmK+CHhpEeIIvCtpf3ClT3G+fTfLPFLuHV8/eYwvvsN+d0OH6D+SWr/BOwzg==
+
 react-native-reanimated@^2.9.1:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.9.1.tgz#d9a932e312c13c05b4f919e43ebbf76d996e0bc1"
