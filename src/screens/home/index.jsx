@@ -32,12 +32,17 @@ class App extends Component {
 
   onLoadEnd = async (syntheticEvent) => {
     const domain = url.extractSegments(APP_URL)?.[0];
-    const cookies = await CookieManager.getAll(true).then((res) => {
-      const filtered = Object.keys(res).filter(key => {
-        return res[key].domain.includes(domain);
-      }).reduce((cur, key) => { return Object.assign(cur, { [key]: res[key] }) }, {});
-      return filtered
-    });
+    let cookies;
+    if(Platform.OS == 'ios'){
+      cookies = await CookieManager.getAll(true).then((res) => {
+        const filtered = Object.keys(res).filter(key => {
+          return res[key].domain.includes(domain);
+        }).reduce((cur, key) => { return Object.assign(cur, { [key]: res[key] }) }, {});
+        return filtered
+      });
+    } else {
+      cookies = await CookieManager.get(APP_URL);
+    }
 
     this.setState({ isReady: true });
     globalActions.setState({ cookies });
