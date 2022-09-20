@@ -21,9 +21,9 @@ class App extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const allKeys = props.global.webview;
+    const allKeys = props.global?.webview ?? [];
 
-    if (allKeys.length === 0) {
+    if (allKeys?.length === 0) {
       state = {
         ...state,
         initScript: webViewLocalStorage.SAVE_FROM_WEB
