@@ -27,7 +27,7 @@ export function getState() {
 export function setState(data) {
   return store.dispatch({
     type: GLOBAL_SET_STATE,
-    data,
+    ...data,
   });
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { request, PERMISSIONS } from 'react-native-permissions';
 import CookieManager from '@react-native-cookies/cookies';
@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { APP_URL } from '@env';
 import { globalActions } from '../../redux/actions';
 import { url, cookies } from '../../helpers';
+import { webViewLocalStorage } from '../../utils';
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +16,29 @@ class App extends Component {
     this.state = {
       isReady: false,
       cookiesString: '',
+      initScript: webViewLocalStorage.SAVE_FROM_WEB
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const allKeys = props.global.webview;
+
+    if (allKeys.length === 0) {
+      state = {
+        ...state,
+        initScript: webViewLocalStorage.SAVE_FROM_WEB
+      }
+    } else {
+      const SAVE_FROM_RN = `(function() {
+        ${allKeys.map((n) => `localStorage.setItem(${n.key}, ${n.value});`)}
+      })();`;
+
+      state = {
+        ...state,
+        initScript: SAVE_FROM_RN
+      }
+    }
+    return state;
   }
 
   async componentDidMount() {
@@ -48,6 +71,12 @@ class App extends Component {
     globalActions.setState({ cookies });
   };
 
+  refreshHandler = () => {
+    setInterval(() => {
+      this.myWebView.current.injectJavaScript(SAVE_FROM_WEB);
+    }, 5000);
+  };
+
   render() {
     const { cookiesString, isReady } = this.state;
     if (!isReady) {
@@ -72,6 +101,8 @@ class App extends Component {
         javaScriptEnabled={true}
         domStorageEnabled={true}
         style={styles.WebViewStyle}
+        onMessage={webViewLocalStorage.handleOnMessage}
+        injectedJavaScript={this.state.initScript}
       />
     );
   }
