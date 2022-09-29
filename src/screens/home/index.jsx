@@ -41,15 +41,10 @@ class App extends Component {
     return state;
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     Platform.select({
-      android: async () => {
-        BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
-        await request(PERMISSIONS.ANDROID.CAMERA);
-      },
-      ios: async () => {
-        await request(PERMISSIONS.IOS.CAMERA);
-      }
+      android: this.bootAndroid(),
+      ios: this.bootiOS()
     });
 
     const { global } = this.props;
@@ -59,6 +54,15 @@ class App extends Component {
     } catch (error) {
       this.setState({ isReady: true })
     }
+  }
+
+  async bootAndroid() {
+    BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
+    await request(PERMISSIONS.ANDROID.CAMERA);
+  }
+
+  async bootiOS() {
+    await request(PERMISSIONS.IOS.CAMERA);
   }
 
   onLoadEnd = async (syntheticEvent) => {
