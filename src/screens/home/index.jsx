@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, BackHandler, ActivityIndicator, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { request, PERMISSIONS } from 'react-native-permissions';
 import CookieManager from '@react-native-cookies/cookies';
@@ -12,7 +12,7 @@ import { webViewLocalStorage } from '../../utils';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.myWebView = React.createRef();
+    this.webView = React.createRef();
     this.state = {
       isReady: false,
       cookiesString: '',
@@ -42,7 +42,15 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await request(PERMISSIONS.ANDROID.CAMERA);
+    Platform.select({
+      android: async () => {
+        BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
+        await request(PERMISSIONS.ANDROID.CAMERA);
+      },
+      ios: async () => {
+        await request(PERMISSIONS.IOS.CAMERA);
+      }
+    });
 
     const { global } = this.props;
     try {
@@ -56,7 +64,7 @@ class App extends Component {
   onLoadEnd = async (syntheticEvent) => {
     const domain = url.extractSegments(APP_URL)?.[0];
     let cookies;
-    if(Platform.OS == 'ios'){
+    if (Platform.OS == 'ios') {
       cookies = await CookieManager.getAll(true).then((res) => {
         const filtered = Object.keys(res).filter(key => {
           return res[key].domain.includes(domain);
@@ -73,36 +81,61 @@ class App extends Component {
 
   refreshHandler = () => {
     setInterval(() => {
-      this.myWebView.current.injectJavaScript(SAVE_FROM_WEB);
+      this.webView.current.injectJavaScript(SAVE_FROM_WEB);
     }, 5000);
   };
 
+
+  onAndroidBackPress = () => {
+    if (this.webView.current && this.webView.current.canGoBack) {
+      this.webView.current.goBack();
+      return true;
+    }
+    return false;
+  }
+
+  componentWillUnmount() {
+    Platform.select({
+      android: () => {
+        BackHandler.removeEventListener('hardwareBackPress');
+      }
+    })
+  }
+
   render() {
+    console.log('cvan', this.webView.current)
     const { cookiesString, isReady } = this.state;
     if (!isReady) {
       return null;
     }
     return (
       <WebView
-        ref={this.myWebView}
+        ref={this.webView}
         source={{
           uri: `${APP_URL}`,
           headers: {
             Cookie: cookiesString,
           },
         }}
-        onLoadEnd={this.onLoadEnd.bind(this)}
         allowsBackForwardNavigationGestures
         allowFileAccess
         allowsInlineMediaPlayback
         scalesPageToFit
         useWebKit
         sharedCookiesEnabled
+        startInLoadingState
         javaScriptEnabled={true}
         domStorageEnabled={true}
+        renderLoading={() => (
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <ActivityIndicator size="large" />
+          </View>
+        )}
+        onLoadEnd={this.onLoadEnd.bind(this)}
         style={styles.WebViewStyle}
         onMessage={webViewLocalStorage.handleOnMessage}
         injectedJavaScript={this.state.initScript}
+        onNavigationStateChange={(navState) => { this.webView.current.canGoBack = navState.canGoBack; }}
       />
     );
   }
