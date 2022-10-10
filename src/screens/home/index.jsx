@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-import { Platform, StyleSheet, BackHandler, ActivityIndicator, View } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { request, PERMISSIONS } from 'react-native-permissions';
-import CookieManager from '@react-native-cookies/cookies';
-import { connect } from 'react-redux';
 import { APP_URL } from '@env';
+import CookieManager from '@react-native-cookies/cookies';
+import messaging from '@react-native-firebase/messaging';
+import React, { Component } from 'react';
+import { ActivityIndicator, Alert, BackHandler, Platform, StyleSheet, View } from 'react-native';
+import { PERMISSIONS, request } from 'react-native-permissions';
+import PushNotification from 'react-native-push-notification';
+import { WebView } from 'react-native-webview';
+import { connect } from 'react-redux';
+import { cookies, url } from '../../helpers';
 import { globalActions } from '../../redux/actions';
-import { url, cookies } from '../../helpers';
 import { webViewLocalStorage } from '../../utils';
 
 class App extends Component {
@@ -41,11 +43,19 @@ class App extends Component {
     return state;
   }
 
+  async checkFCMToken() {
+    const token = await messaging().getToken();
+    console.log('fcm token', token)
+  }
+
   componentDidMount() {
     Platform.select({
+      default: this.bootAll(),
       android: this.bootAndroid(),
-      ios: this.bootiOS()
+      ios: this.bootiOS(),
     });
+
+    this.checkFCMToken()
 
     const { global } = this.props;
     try {
@@ -56,13 +66,24 @@ class App extends Component {
     }
   }
 
+  async bootAll() {
+    await messaging().requestPermission();
+    messaging().setBackgroundMessageHandler(async (message) => {
+      Alert.alert('new message', JSON.stringify(message));
+    })
+  }
+
   async bootAndroid() {
     BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
     await request(PERMISSIONS.ANDROID.CAMERA);
+    messaging().onMessage(async (message) => {
+      this.showNotification(message.notification);
+    })
   }
 
   async bootiOS() {
     await request(PERMISSIONS.IOS.CAMERA);
+    messaging().registerDeviceForRemoteMessages();
   }
 
   onLoadEnd = async (syntheticEvent) => {
@@ -98,6 +119,12 @@ class App extends Component {
     return false;
   }
 
+  showNotification = (notification) => {
+    PushNotification.localNotification({
+      title: notification.title, message: notification.body ?? "",
+    });
+  };
+
   componentWillUnmount() {
     Platform.select({
       android: () => {
@@ -107,7 +134,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('cvan', this.webView.current)
     const { cookiesString, isReady } = this.state;
     if (!isReady) {
       return null;
@@ -121,6 +147,7 @@ class App extends Component {
             Cookie: cookiesString,
           },
         }}
+        useWebView2
         allowsBackForwardNavigationGestures
         allowFileAccess
         allowsInlineMediaPlayback
@@ -140,6 +167,7 @@ class App extends Component {
         onMessage={webViewLocalStorage.handleOnMessage}
         injectedJavaScript={this.state.initScript}
         onNavigationStateChange={(navState) => { this.webView.current.canGoBack = navState.canGoBack; }}
+        pullToRefreshEnabled
       />
     );
   }
