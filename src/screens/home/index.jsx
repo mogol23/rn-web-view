@@ -91,6 +91,7 @@ class App extends Component {
             Cookie: cookiesString,
           },
         }}
+        bounces={false}
         onLoadEnd={this.onLoadEnd.bind(this)}
         allowsBackForwardNavigationGestures
         allowFileAccess
