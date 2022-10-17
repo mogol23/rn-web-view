@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "webview.app"
-               BlueprintName = "webview"
-               ReferencedContainer = "container:webview.xcodeproj">
+               BuildableName = "AdabSantriPOS.app"
+               BlueprintName = "AdabSantriPOS"
+               ReferencedContainer = "container:AdabSantriPOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "webviewTests.xctest"
-               BlueprintName = "webviewTests"
-               ReferencedContainer = "container:webview.xcodeproj">
+               BuildableName = "AdabSantriPOSTests.xctest"
+               BlueprintName = "AdabSantriPOSTests"
+               ReferencedContainer = "container:AdabSantriPOS.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "webview.app"
-            BlueprintName = "webview"
-            ReferencedContainer = "container:webview.xcodeproj">
+            BuildableName = "AdabSantriPOS.app"
+            BlueprintName = "AdabSantriPOS"
+            ReferencedContainer = "container:AdabSantriPOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "webview.app"
-            BlueprintName = "webview"
-            ReferencedContainer = "container:webview.xcodeproj">
+            BuildableName = "AdabSantriPOS.app"
+            BlueprintName = "AdabSantriPOS"
+            ReferencedContainer = "container:AdabSantriPOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

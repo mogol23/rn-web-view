@@ -1,4 +1,4 @@
-package com.app.webview.newarchitecture.components;
+package com.adab_santri.pos.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
