@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "200743795508",
+    "project_id": "rustan-consulting-8dbc1",
+    "storage_bucket": "rustan-consulting-8dbc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200743795508:android:0cfea1b38ee7f425098361",
+        "android_client_info": {
+          "package_name": "com.app.webview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200743795508-ppb1quksam5ipkp129hrva16b4g41jn4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.webview",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "200743795508-u48041vioo4k6bl7cfebugrq709p8knv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx6-YG56yd-GBrPrCG_FpCwO8UWtYbGC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200743795508-u48041vioo4k6bl7cfebugrq709p8knv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "200743795508-s8n17mp2hu9gapo5c32s4vsie0bfd5r8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rustan.consulting.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
