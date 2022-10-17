@@ -1,4 +1,4 @@
-import { APP_URL } from '@env';
+import { APP_HAS_CAMERA, APP_URL, PUSH_NOTIFICATION_ENABLED } from '@env';
 import CookieManager from '@react-native-cookies/cookies';
 import messaging from '@react-native-firebase/messaging';
 import React, { Component } from 'react';
@@ -49,14 +49,21 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Platform.select({
-      default: this.bootAll(),
-      android: this.bootAndroid(),
-      ios: this.bootiOS(),
-    });
+    this.bootAll();
 
-    this.checkFCMToken()
+    switch (Platform.OS) {
+      case 'android':
+        this.bootAndroid()
+        break;
+      case 'ios':
+        this.bootiOS()
+        break;
+      default:
+        break;
+    }
+  }
 
+  async bootAll() {
     const { global } = this.props;
     try {
       const cookiesString = cookies.toString(global.cookies);
@@ -64,26 +71,38 @@ class App extends Component {
     } catch (error) {
       this.setState({ isReady: true })
     }
-  }
 
-  async bootAll() {
-    await messaging().requestPermission();
-    messaging().setBackgroundMessageHandler(async (message) => {
-      Alert.alert('new message', JSON.stringify(message));
-    })
+    if (PUSH_NOTIFICATION_ENABLED) {
+      await messaging().requestPermission();
+      this.checkFCMToken();
+      messaging().setBackgroundMessageHandler(async (message) => {
+        Alert.alert('new message', JSON.stringify(message));
+      })
+    }
+    console.log('booted all platform')
   }
 
   async bootAndroid() {
     BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
-    await request(PERMISSIONS.ANDROID.CAMERA);
-    messaging().onMessage(async (message) => {
-      this.showNotification(message.notification);
-    })
+    if (APP_HAS_CAMERA) {
+      await request(PERMISSIONS.ANDROID.CAMERA);
+    }
+    if (PUSH_NOTIFICATION_ENABLED) {
+      messaging().onMessage(async (message) => {
+        this.showNotification(message.notification);
+      })
+    }
+    console.log('booted for android')
   }
 
   async bootiOS() {
-    await request(PERMISSIONS.IOS.CAMERA);
-    messaging().registerDeviceForRemoteMessages();
+    if (APP_HAS_CAMERA) {
+      await request(PERMISSIONS.IOS.CAMERA);
+    }
+    if (PUSH_NOTIFICATION_ENABLED) {
+      messaging().registerDeviceForRemoteMessages();
+    }
+    console.log('booted for iOS');
   }
 
   onLoadEnd = async (syntheticEvent) => {
@@ -136,7 +155,11 @@ class App extends Component {
   render() {
     const { cookiesString, isReady } = this.state;
     if (!isReady) {
-      return null;
+      return (
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <ActivityIndicator size="large" />
+        </View>
+      )
     }
     return (
       <WebView
