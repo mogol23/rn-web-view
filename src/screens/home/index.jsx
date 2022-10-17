@@ -170,6 +170,7 @@ class App extends Component {
             Cookie: cookiesString,
           },
         }}
+        bounces={false}
         useWebView2
         allowsBackForwardNavigationGestures
         allowFileAccess
