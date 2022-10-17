@@ -171,6 +171,7 @@ class App extends Component {
           },
         }}
         useWebView2
+        bounces={false}
         allowsBackForwardNavigationGestures
         allowFileAccess
         allowsInlineMediaPlayback
