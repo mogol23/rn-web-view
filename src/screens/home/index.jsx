@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
-import { Platform, StyleSheet } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { request, PERMISSIONS } from 'react-native-permissions';
+import { APP_HAS_CAMERA, APP_URL, PUSH_NOTIFICATION_ENABLED } from '@env';
 import CookieManager from '@react-native-cookies/cookies';
+import messaging from '@react-native-firebase/messaging';
+import React, { Component } from 'react';
+import { ActivityIndicator, Alert, BackHandler, Platform, StyleSheet, View } from 'react-native';
+import { PERMISSIONS, request } from 'react-native-permissions';
+import PushNotification from 'react-native-push-notification';
+import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
-import { APP_URL } from '@env';
+import { cookies, url } from '../../helpers';
 import { globalActions } from '../../redux/actions';
-import { url, cookies } from '../../helpers';
 import { webViewLocalStorage } from '../../utils';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.myWebView = React.createRef();
+    this.webView = React.createRef();
     this.state = {
       isReady: false,
       cookiesString: '',
@@ -41,9 +43,27 @@ class App extends Component {
     return state;
   }
 
-  async componentDidMount() {
-    await request(PERMISSIONS.ANDROID.CAMERA);
+  async checkFCMToken() {
+    const token = await messaging().getToken();
+    console.log('fcm token', token)
+  }
 
+  componentDidMount() {
+    this.bootAll();
+
+    switch (Platform.OS) {
+      case 'android':
+        this.bootAndroid()
+        break;
+      case 'ios':
+        this.bootiOS()
+        break;
+      default:
+        break;
+    }
+  }
+
+  async bootAll() {
     const { global } = this.props;
     try {
       const cookiesString = cookies.toString(global.cookies);
@@ -51,12 +71,44 @@ class App extends Component {
     } catch (error) {
       this.setState({ isReady: true })
     }
+
+    if (PUSH_NOTIFICATION_ENABLED) {
+      await messaging().requestPermission();
+      this.checkFCMToken();
+      messaging().setBackgroundMessageHandler(async (message) => {
+        Alert.alert('new message', JSON.stringify(message));
+      })
+    }
+    console.log('booted all platform')
+  }
+
+  async bootAndroid() {
+    BackHandler.addEventListener('hardwareBackPress', this.onAndroidBackPress);
+    if (APP_HAS_CAMERA) {
+      await request(PERMISSIONS.ANDROID.CAMERA);
+    }
+    if (PUSH_NOTIFICATION_ENABLED) {
+      messaging().onMessage(async (message) => {
+        this.showNotification(message.notification);
+      })
+    }
+    console.log('booted for android')
+  }
+
+  async bootiOS() {
+    if (APP_HAS_CAMERA) {
+      await request(PERMISSIONS.IOS.CAMERA);
+    }
+    if (PUSH_NOTIFICATION_ENABLED) {
+      messaging().registerDeviceForRemoteMessages();
+    }
+    console.log('booted for iOS');
   }
 
   onLoadEnd = async (syntheticEvent) => {
     const domain = url.extractSegments(APP_URL)?.[0];
     let cookies;
-    if(Platform.OS == 'ios'){
+    if (Platform.OS == 'ios') {
       cookies = await CookieManager.getAll(true).then((res) => {
         const filtered = Object.keys(res).filter(key => {
           return res[key].domain.includes(domain);
@@ -73,18 +125,45 @@ class App extends Component {
 
   refreshHandler = () => {
     setInterval(() => {
-      this.myWebView.current.injectJavaScript(SAVE_FROM_WEB);
+      this.webView.current.injectJavaScript(SAVE_FROM_WEB);
     }, 5000);
   };
+
+
+  onAndroidBackPress = () => {
+    if (this.webView.current && this.webView.current.canGoBack) {
+      this.webView.current.goBack();
+      return true;
+    }
+    return false;
+  }
+
+  showNotification = (notification) => {
+    PushNotification.localNotification({
+      title: notification.title, message: notification.body ?? "",
+    });
+  };
+
+  componentWillUnmount() {
+    Platform.select({
+      android: () => {
+        BackHandler.removeEventListener('hardwareBackPress');
+      }
+    })
+  }
 
   render() {
     const { cookiesString, isReady } = this.state;
     if (!isReady) {
-      return null;
+      return (
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <ActivityIndicator size="large" />
+        </View>
+      )
     }
     return (
       <WebView
-        ref={this.myWebView}
+        ref={this.webView}
         source={{
           uri: `${APP_URL}`,
           headers: {
@@ -92,18 +171,27 @@ class App extends Component {
           },
         }}
         bounces={false}
-        onLoadEnd={this.onLoadEnd.bind(this)}
+        useWebView2
         allowsBackForwardNavigationGestures
         allowFileAccess
         allowsInlineMediaPlayback
         scalesPageToFit
         useWebKit
         sharedCookiesEnabled
+        startInLoadingState
         javaScriptEnabled={true}
         domStorageEnabled={true}
+        renderLoading={() => (
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <ActivityIndicator size="large" />
+          </View>
+        )}
+        onLoadEnd={this.onLoadEnd.bind(this)}
         style={styles.WebViewStyle}
         onMessage={webViewLocalStorage.handleOnMessage}
         injectedJavaScript={this.state.initScript}
+        onNavigationStateChange={(navState) => { this.webView.current.canGoBack = navState.canGoBack; }}
+        pullToRefreshEnabled
       />
     );
   }

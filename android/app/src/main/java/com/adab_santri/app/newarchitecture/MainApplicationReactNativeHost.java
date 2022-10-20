@@ -1,4 +1,4 @@
-package com.app.webview.newarchitecture;
+package com.adab_santri.app.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.app.webview.BuildConfig;
-import com.app.webview.newarchitecture.components.MainComponentsRegistry;
-import com.app.webview.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.adab_santri.app.BuildConfig;
+import com.adab_santri.app.newarchitecture.components.MainComponentsRegistry;
+import com.adab_santri.app.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

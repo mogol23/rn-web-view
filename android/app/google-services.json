@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1031826279169",
+    "project_id": "adab-santri-app",
+    "storage_bucket": "adab-santri-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031826279169:android:a5040fc229a52f906ca900",
+        "android_client_info": {
+          "package_name": "com.adab_santri.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031826279169-k905q6niufk1ms29v6kn7j0itcie7hul.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adab_santri.app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1031826279169-7sdcon9ge4po81ui0sq084evjmi3rje9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQfjyqzKSWVAAn4_CsTAH6IeaaDH8jm-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031826279169-7sdcon9ge4po81ui0sq084evjmi3rje9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
