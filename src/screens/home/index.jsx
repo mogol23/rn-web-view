@@ -170,6 +170,8 @@ class App extends Component {
             Cookie: cookiesString,
           },
         }}
+        cacheEnabled={true}
+        cacheMode="LOAD_CACHE_ELSE_NETWORK"
         bounces={false}
         useWebView2
         allowsBackForwardNavigationGestures
