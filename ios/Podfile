@@ -5,7 +5,7 @@ platform :ios, '12.4'
 
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'AdabSantri' do
+target 'RustanConsulting' do
   use_frameworks! :linkage => :static
   $RNFirebaseAsStaticFramework = true
   
@@ -59,7 +59,7 @@ target 'AdabSantri' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'AdabSantriTests' do
+  target 'RustanConsultingTests' do
     inherit! :complete
     # Pods for testing
   end

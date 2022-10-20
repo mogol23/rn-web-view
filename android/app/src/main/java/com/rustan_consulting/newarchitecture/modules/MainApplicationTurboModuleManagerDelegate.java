@@ -1,4 +1,4 @@
-package com.adab_santri.app.newarchitecture.modules;
+package com.rustan_consulting.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

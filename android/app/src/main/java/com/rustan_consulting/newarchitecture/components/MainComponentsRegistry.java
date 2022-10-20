@@ -1,4 +1,4 @@
-package com.adab_santri.app.newarchitecture.components;
+package com.rustan_consulting.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* AdabSantriTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AdabSantriTests.m */; };
+		00E356F31AD99517003FC87E /* RustanConsultingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* RustanConsultingTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		9292A96AC017598C6FCF8E22 /* Pods_AdabSantri_AdabSantriTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1FB632EFFCE169099C09FA1 /* Pods_AdabSantri_AdabSantriTests.framework */; };
+		9292A96AC017598C6FCF8E22 /* Pods_RustanConsulting_RustanConsultingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1FB632EFFCE169099C09FA1 /* Pods_RustanConsulting_RustanConsultingTests.framework */; };
 		D433C62128724FF800638404 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = D433C62028724FF700638404 /* Fonts */; };
 		D476AD8428E57C49001965D4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D476AD8328E57C49001965D4 /* GoogleService-Info.plist */; };
-		F8AF4BC3302272F2148F15A3 /* Pods_AdabSantri.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A269AB2C6A08C9326C3239E7 /* Pods_AdabSantri.framework */; };
+		F8AF4BC3302272F2148F15A3 /* Pods_RustanConsulting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A269AB2C6A08C9326C3239E7 /* Pods_RustanConsulting.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,29 +24,29 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = AdabSantri;
+			remoteInfo = RustanConsulting;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* AdabSantriTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdabSantriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* RustanConsultingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RustanConsultingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* AdabSantriTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdabSantriTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* AdabSantri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdabSantri.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AdabSantri/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = AdabSantri/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AdabSantri/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AdabSantri/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AdabSantri/main.m; sourceTree = "<group>"; };
-		19315D2ABD5846920F27D021 /* Pods-AdabSantri-AdabSantriTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdabSantri-AdabSantriTests.release.xcconfig"; path = "Target Support Files/Pods-AdabSantri-AdabSantriTests/Pods-AdabSantri-AdabSantriTests.release.xcconfig"; sourceTree = "<group>"; };
-		4384AC724EE8D5807552569B /* Pods-AdabSantri-AdabSantriTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdabSantri-AdabSantriTests.debug.xcconfig"; path = "Target Support Files/Pods-AdabSantri-AdabSantriTests/Pods-AdabSantri-AdabSantriTests.debug.xcconfig"; sourceTree = "<group>"; };
-		56A057EB7514671FDC9C52DC /* Pods-AdabSantri.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdabSantri.debug.xcconfig"; path = "Target Support Files/Pods-AdabSantri/Pods-AdabSantri.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = AdabSantri/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A269AB2C6A08C9326C3239E7 /* Pods_AdabSantri.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdabSantri.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F21AD99517003FC87E /* RustanConsultingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RustanConsultingTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* RustanConsulting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RustanConsulting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RustanConsulting/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = RustanConsulting/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RustanConsulting/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RustanConsulting/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RustanConsulting/main.m; sourceTree = "<group>"; };
+		19315D2ABD5846920F27D021 /* Pods-RustanConsulting-RustanConsultingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RustanConsulting-RustanConsultingTests.release.xcconfig"; path = "Target Support Files/Pods-RustanConsulting-RustanConsultingTests/Pods-RustanConsulting-RustanConsultingTests.release.xcconfig"; sourceTree = "<group>"; };
+		4384AC724EE8D5807552569B /* Pods-RustanConsulting-RustanConsultingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RustanConsulting-RustanConsultingTests.debug.xcconfig"; path = "Target Support Files/Pods-RustanConsulting-RustanConsultingTests/Pods-RustanConsulting-RustanConsultingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		56A057EB7514671FDC9C52DC /* Pods-RustanConsulting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RustanConsulting.debug.xcconfig"; path = "Target Support Files/Pods-RustanConsulting/Pods-RustanConsulting.debug.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = RustanConsulting/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A269AB2C6A08C9326C3239E7 /* Pods_RustanConsulting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RustanConsulting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D433C62028724FF700638404 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		D476AD8328E57C49001965D4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E1FB632EFFCE169099C09FA1 /* Pods_AdabSantri_AdabSantriTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdabSantri_AdabSantriTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8230811B0BAC2A1554DC0DA /* Pods-AdabSantri.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdabSantri.release.xcconfig"; path = "Target Support Files/Pods-AdabSantri/Pods-AdabSantri.release.xcconfig"; sourceTree = "<group>"; };
+		E1FB632EFFCE169099C09FA1 /* Pods_RustanConsulting_RustanConsultingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RustanConsulting_RustanConsultingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8230811B0BAC2A1554DC0DA /* Pods-RustanConsulting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RustanConsulting.release.xcconfig"; path = "Target Support Files/Pods-RustanConsulting/Pods-RustanConsulting.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9292A96AC017598C6FCF8E22 /* Pods_AdabSantri_AdabSantriTests.framework in Frameworks */,
+				9292A96AC017598C6FCF8E22 /* Pods_RustanConsulting_RustanConsultingTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,20 +63,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8AF4BC3302272F2148F15A3 /* Pods_AdabSantri.framework in Frameworks */,
+				F8AF4BC3302272F2148F15A3 /* Pods_RustanConsulting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* AdabSantriTests */ = {
+		00E356EF1AD99517003FC87E /* RustanConsultingTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* AdabSantriTests.m */,
+				00E356F21AD99517003FC87E /* RustanConsultingTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = AdabSantriTests;
+			path = RustanConsultingTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -87,7 +87,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* AdabSantri */ = {
+		13B07FAE1A68108700A75B9A /* RustanConsulting */ = {
 			isa = PBXGroup;
 			children = (
 				D433C62028724FF700638404 /* Fonts */,
@@ -98,15 +98,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = AdabSantri;
+			name = RustanConsulting;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				A269AB2C6A08C9326C3239E7 /* Pods_AdabSantri.framework */,
-				E1FB632EFFCE169099C09FA1 /* Pods_AdabSantri_AdabSantriTests.framework */,
+				A269AB2C6A08C9326C3239E7 /* Pods_RustanConsulting.framework */,
+				E1FB632EFFCE169099C09FA1 /* Pods_RustanConsulting_RustanConsultingTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -122,9 +122,9 @@
 			isa = PBXGroup;
 			children = (
 				D476AD8328E57C49001965D4 /* GoogleService-Info.plist */,
-				13B07FAE1A68108700A75B9A /* AdabSantri */,
+				13B07FAE1A68108700A75B9A /* RustanConsulting */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* AdabSantriTests */,
+				00E356EF1AD99517003FC87E /* RustanConsultingTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -137,8 +137,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* AdabSantri.app */,
-				00E356EE1AD99517003FC87E /* AdabSantriTests.xctest */,
+				13B07F961A680F5B00A75B9A /* RustanConsulting.app */,
+				00E356EE1AD99517003FC87E /* RustanConsultingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,10 +146,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				56A057EB7514671FDC9C52DC /* Pods-AdabSantri.debug.xcconfig */,
-				E8230811B0BAC2A1554DC0DA /* Pods-AdabSantri.release.xcconfig */,
-				4384AC724EE8D5807552569B /* Pods-AdabSantri-AdabSantriTests.debug.xcconfig */,
-				19315D2ABD5846920F27D021 /* Pods-AdabSantri-AdabSantriTests.release.xcconfig */,
+				56A057EB7514671FDC9C52DC /* Pods-RustanConsulting.debug.xcconfig */,
+				E8230811B0BAC2A1554DC0DA /* Pods-RustanConsulting.release.xcconfig */,
+				4384AC724EE8D5807552569B /* Pods-RustanConsulting-RustanConsultingTests.debug.xcconfig */,
+				19315D2ABD5846920F27D021 /* Pods-RustanConsulting-RustanConsultingTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -157,9 +157,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* AdabSantriTests */ = {
+		00E356ED1AD99517003FC87E /* RustanConsultingTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AdabSantriTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RustanConsultingTests" */;
 			buildPhases = (
 				C21FCF428E8CB20D636ECE4C /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -172,14 +172,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = AdabSantriTests;
-			productName = AdabSantriTests;
-			productReference = 00E356EE1AD99517003FC87E /* AdabSantriTests.xctest */;
+			name = RustanConsultingTests;
+			productName = RustanConsultingTests;
+			productReference = 00E356EE1AD99517003FC87E /* RustanConsultingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* AdabSantri */ = {
+		13B07F861A680F5B00A75B9A /* RustanConsulting */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AdabSantri" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RustanConsulting" */;
 			buildPhases = (
 				BD350F9C04FCAF72A9554A5E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -194,9 +194,9 @@
 			);
 			dependencies = (
 			);
-			name = AdabSantri;
-			productName = AdabSantri;
-			productReference = 13B07F961A680F5B00A75B9A /* AdabSantri.app */;
+			name = RustanConsulting;
+			productName = RustanConsulting;
+			productReference = 13B07F961A680F5B00A75B9A /* RustanConsulting.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -216,7 +216,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "AdabSantri" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RustanConsulting" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -229,8 +229,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* AdabSantri */,
-				00E356ED1AD99517003FC87E /* AdabSantriTests */,
+				13B07F861A680F5B00A75B9A /* RustanConsulting */,
+				00E356ED1AD99517003FC87E /* RustanConsultingTests */,
 			);
 		};
 /* End PBXProject section */
@@ -292,15 +292,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AdabSantri-AdabSantriTests/Pods-AdabSantri-AdabSantriTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RustanConsulting-RustanConsultingTests/Pods-RustanConsulting-RustanConsultingTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AdabSantri-AdabSantriTests/Pods-AdabSantri-AdabSantriTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RustanConsulting-RustanConsultingTests/Pods-RustanConsulting-RustanConsultingTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdabSantri-AdabSantriTests/Pods-AdabSantri-AdabSantriTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RustanConsulting-RustanConsultingTests/Pods-RustanConsulting-RustanConsultingTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A39D48EBDAAD2B1DA4AB09CD /* [CP] Copy Pods Resources */ = {
@@ -309,15 +309,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AdabSantri/Pods-AdabSantri-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RustanConsulting/Pods-RustanConsulting-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AdabSantri/Pods-AdabSantri-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-RustanConsulting/Pods-RustanConsulting-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdabSantri/Pods-AdabSantri-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RustanConsulting/Pods-RustanConsulting-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BD350F9C04FCAF72A9554A5E /* [CP] Check Pods Manifest.lock */ = {
@@ -335,7 +335,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AdabSantri-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-RustanConsulting-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -357,7 +357,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AdabSantri-AdabSantriTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-RustanConsulting-RustanConsultingTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -390,7 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* AdabSantriTests.m in Sources */,
+				00E356F31AD99517003FC87E /* RustanConsultingTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,7 +408,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* AdabSantri */;
+			target = 13B07F861A680F5B00A75B9A /* RustanConsulting */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -416,14 +416,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4384AC724EE8D5807552569B /* Pods-AdabSantri-AdabSantriTests.debug.xcconfig */;
+			baseConfigurationReference = 4384AC724EE8D5807552569B /* Pods-RustanConsulting-RustanConsultingTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = AdabSantriTests/Info.plist;
+				INFOPLIST_FILE = RustanConsultingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -437,17 +437,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdabSantri.app/AdabSantri";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RustanConsulting.app/RustanConsulting";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19315D2ABD5846920F27D021 /* Pods-AdabSantri-AdabSantriTests.release.xcconfig */;
+			baseConfigurationReference = 19315D2ABD5846920F27D021 /* Pods-RustanConsulting-RustanConsultingTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = AdabSantriTests/Info.plist;
+				INFOPLIST_FILE = RustanConsultingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -461,19 +461,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdabSantri.app/AdabSantri";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RustanConsulting.app/RustanConsulting";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56A057EB7514671FDC9C52DC /* Pods-AdabSantri.debug.xcconfig */;
+			baseConfigurationReference = 56A057EB7514671FDC9C52DC /* Pods-RustanConsulting.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = AdabSantri/Info.plist;
+				INFOPLIST_FILE = RustanConsulting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,7 +484,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rustan.consulting.app;
-				PRODUCT_NAME = AdabSantri;
+				PRODUCT_NAME = RustanConsulting;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -493,12 +493,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8230811B0BAC2A1554DC0DA /* Pods-AdabSantri.release.xcconfig */;
+			baseConfigurationReference = E8230811B0BAC2A1554DC0DA /* Pods-RustanConsulting.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = AdabSantri/Info.plist;
+				INFOPLIST_FILE = RustanConsulting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -509,7 +509,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rustan.consulting.app;
-				PRODUCT_NAME = AdabSantri;
+				PRODUCT_NAME = RustanConsulting;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -655,7 +655,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AdabSantriTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "RustanConsultingTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -664,7 +664,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AdabSantri" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "RustanConsulting" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -673,7 +673,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "AdabSantri" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RustanConsulting" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
