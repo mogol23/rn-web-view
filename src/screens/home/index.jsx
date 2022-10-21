@@ -2,18 +2,18 @@ import { APP_HAS_CAMERA, APP_URL, PUSH_NOTIFICATION_ENABLED, PUSH_NOTIFICATION_S
 import CookieManager from '@react-native-cookies/cookies';
 import messaging from '@react-native-firebase/messaging';
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Alert, BackHandler, Platform, StyleSheet, View } from 'react-native';
+import { Alert, BackHandler, Platform, StyleSheet, View } from 'react-native';
+import { Grid } from 'react-native-animated-spinkit';
 import { PERMISSIONS, request } from 'react-native-permissions';
 import PushNotification from 'react-native-push-notification';
 import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
+import { cookies as cookiesHelper, url, viewport } from '../../helpers';
 import { globalActions } from '../../redux/actions';
 import { apiInstance, webViewLocalStorage } from '../../utils';
 
 const App = ({ global: globalProps, ...props }) => {
   const webViewRef = useRef();
-  const [isReady, setIsReady] = useState(false);
-  const [cookiesString, setCookiesString] = useState(null);
   const [initScript, setInitScript] = useState(webViewLocalStorage.SAVE_FROM_WEB);
 
   useEffect(() => {
@@ -27,13 +27,6 @@ const App = ({ global: globalProps, ...props }) => {
 
       setInitScript(SAVE_FROM_RN);
     }
-
-    try {
-      setCookiesString(cookies.toString(globalProps.cookies));
-    } catch (error) {
-    } finally {
-      setIsReady(true)
-    }
   }, [globalProps]);
 
 
@@ -46,7 +39,7 @@ const App = ({ global: globalProps, ...props }) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Cookie': cookiesString
+        'Cookie': cookiesHelper.toString(globalProps.cookies)
       }
     })
   }
@@ -125,14 +118,13 @@ const App = ({ global: globalProps, ...props }) => {
         return filtered
       });
     } else {
-      cookies = await CookieManager.get(APP_URL);
+      cookies = await CookieManager.get(domain);
     }
 
     if (PUSH_NOTIFICATION_ENABLED) {
       checkFCMToken();
     }
 
-    setIsReady(true);
     globalActions.setState({ cookies });
   };
 
@@ -142,21 +134,13 @@ const App = ({ global: globalProps, ...props }) => {
     });
   };
 
-  if (!isReady) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
-      </View>
-    )
-  }
-
   return (
     <WebView
       ref={webViewRef}
       source={{
         uri: `${APP_URL}`,
         headers: {
-          Cookie: cookiesString,
+          Cookie: cookiesHelper.toString(globalProps.cookies),
         },
       }}
       cacheEnabled={true}
@@ -173,8 +157,8 @@ const App = ({ global: globalProps, ...props }) => {
       javaScriptEnabled={true}
       domStorageEnabled={true}
       renderLoading={() => (
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          <ActivityIndicator size="large" />
+        <View style={{ width: viewport.width, height: viewport.height, alignItems: 'center', justifyContent: 'center' }}>
+          <Grid />
         </View>
       )}
       onLoadEnd={onLoadEnd}
