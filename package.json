@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "ios:prebuild": "yarn && watchman watch-del-all && cd ios && pod install && cd ..",
@@ -26,6 +26,7 @@
     "native-base": "^3.2.2",
     "react": "18.0.0",
     "react-native": "0.69.1",
+    "react-native-animated-spinkit": "^1.5.2",
     "react-native-dotenv": "^3.3.1",
     "react-native-gesture-handler": "^2.0.0",
     "react-native-permissions": "^3.6.1",
