@@ -8,6 +8,7 @@ import Navigation from './navigations';
 import { store, storePersisted } from './redux';
 import { theme } from './utils';
 
+
 export default () => {
   return (
     <ReduxProvider store={store}>

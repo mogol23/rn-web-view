@@ -4,8 +4,8 @@ import messaging from '@react-native-firebase/messaging';
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, BackHandler, Platform, StyleSheet, View } from 'react-native';
 import { Grid } from 'react-native-animated-spinkit';
-import { PERMISSIONS, request } from 'react-native-permissions';
-import PushNotification from 'react-native-push-notification';
+import { PERMISSIONS, request, requestNotifications } from 'react-native-permissions';
+import PushNotification, { Importance } from 'react-native-push-notification';
 import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
 import { cookies as cookiesHelper, url, viewport } from '../../helpers';
@@ -32,6 +32,7 @@ const App = ({ global: globalProps, ...props }) => {
 
   const checkFCMToken = async () => {
     const token = await messaging().getToken();
+    console.log('token', token);
     await apiInstance.post(PUSH_NOTIFICATION_STORE_TOKEN_API_URL, {
       fcm_token: token
     }, {
@@ -46,6 +47,8 @@ const App = ({ global: globalProps, ...props }) => {
 
   const bootAll = async () => {
     if (PUSH_NOTIFICATION_ENABLED) {
+      PushNotification.checkPermissions(console.log) //Check permissions
+      await requestNotifications(["alert"])
       await messaging().requestPermission();
       checkFCMToken();
       messaging().setBackgroundMessageHandler(async (message) => {
@@ -130,7 +133,9 @@ const App = ({ global: globalProps, ...props }) => {
 
   const showNotification = (notification) => {
     PushNotification.localNotification({
-      title: notification.title, message: notification.body ?? "",
+      title: notification.title,
+      message: notification.body ?? "",
+      channelId: "rustan-push-notification-1",
     });
   };
 
