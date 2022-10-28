@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Alert, BackHandler, Platform, StyleSheet, View } from 'react-native';
 import { Grid } from 'react-native-animated-spinkit';
 import { PERMISSIONS, request } from 'react-native-permissions';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
 import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';

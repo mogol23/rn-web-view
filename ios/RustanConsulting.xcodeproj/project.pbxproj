@@ -45,6 +45,7 @@
 		A269AB2C6A08C9326C3239E7 /* Pods_RustanConsulting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RustanConsulting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D433C62028724FF700638404 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		D476AD8328E57C49001965D4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D4A483D92908D0C300CD3A69 /* RustanConsulting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RustanConsulting.entitlements; path = RustanConsulting/RustanConsulting.entitlements; sourceTree = "<group>"; };
 		E1FB632EFFCE169099C09FA1 /* Pods_RustanConsulting_RustanConsultingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RustanConsulting_RustanConsultingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8230811B0BAC2A1554DC0DA /* Pods-RustanConsulting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RustanConsulting.release.xcconfig"; path = "Target Support Files/Pods-RustanConsulting/Pods-RustanConsulting.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -90,6 +91,7 @@
 		13B07FAE1A68108700A75B9A /* RustanConsulting */ = {
 			isa = PBXGroup;
 			children = (
+				D4A483D92908D0C300CD3A69 /* RustanConsulting.entitlements */,
 				D433C62028724FF700638404 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -471,7 +473,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = RustanConsulting/RustanConsulting.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4N8U8HQWW4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RustanConsulting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -483,8 +489,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rustan.consulting.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.report.rustanconsulting;
 				PRODUCT_NAME = RustanConsulting;
+				PROVISIONING_PROFILE_SPECIFIER = "Ahmad-rustan-prov";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -497,7 +504,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = RustanConsulting/RustanConsulting.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4N8U8HQWW4;
 				INFOPLIST_FILE = RustanConsulting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -508,8 +519,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.rustan.consulting.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.report.rustanconsulting;
 				PRODUCT_NAME = RustanConsulting;
+				PROVISIONING_PROFILE_SPECIFIER = "Ahmad-rustan-prov";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
