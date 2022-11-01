@@ -70,6 +70,21 @@ const App = ({ global: globalProps, ...props }) => {
       await request(PERMISSIONS.ANDROID.CAMERA);
     }
     if (PUSH_NOTIFICATION_ENABLED) {
+      PushNotification.getChannels(function (channel_ids) {
+        console.log(channel_ids); // ['channel_id_1']
+      });
+      PushNotification.createChannel(
+        {
+          channelId: "push-notification-1", // (required)
+          channelName: "push-notification-1", // (required)
+          // channelDescription: "A channel to categorise your notifications", // (optional) default: undefined.
+          // playSound: false, // (optional) default: true
+          // soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+          // importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+          // vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
+        },
+        (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+      );
       messaging().onMessage(async (message) => {
         showNotification(message.notification);
       })
@@ -130,8 +145,11 @@ const App = ({ global: globalProps, ...props }) => {
   };
 
   const showNotification = (notification) => {
+    console.log('got notification', notification);
+    Alert.alert('got notification', JSON.stringify(notification) ?? "undefined")
     PushNotification.localNotification({
       title: notification.title, message: notification.body ?? "",
+      channelId: "push-notification-1"
     });
   };
 
