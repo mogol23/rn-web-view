@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Rustan Consulting</string>
+    <string name="default_notification_channel_id">push-notification-1</string>
 </resources>

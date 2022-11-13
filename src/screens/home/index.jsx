@@ -2,20 +2,20 @@ import { APP_HAS_CAMERA, APP_URL, PUSH_NOTIFICATION_ENABLED, PUSH_NOTIFICATION_S
 import CookieManager from '@react-native-cookies/cookies';
 import messaging from '@react-native-firebase/messaging';
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, BackHandler, Platform, StyleSheet, View } from 'react-native';
+import { BackHandler, Platform, StyleSheet, View } from 'react-native';
 import { Grid } from 'react-native-animated-spinkit';
-import { PERMISSIONS, request, requestNotifications } from 'react-native-permissions';
-import PushNotification, { Importance } from 'react-native-push-notification';
+import { PERMISSIONS, request } from 'react-native-permissions';
+import PushNotification from 'react-native-push-notification';
 import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
 import { cookies as cookiesHelper, url, viewport } from '../../helpers';
 import { globalActions } from '../../redux/actions';
 import { apiInstance, webViewLocalStorage } from '../../utils';
 
-const App = ({ global: globalProps, ...props }) => {
+const App = ({ global: globalProps, route, ...props }) => {
+  const [tempUrl, setTempUrl] = useState();
   const webViewRef = useRef();
   const [initScript, setInitScript] = useState(webViewLocalStorage.SAVE_FROM_WEB);
-
   useEffect(() => {
     const allKeys = globalProps?.webview ?? [];
     if (allKeys?.length === 0) {
@@ -30,9 +30,16 @@ const App = ({ global: globalProps, ...props }) => {
   }, [globalProps]);
 
 
+  useEffect(() => {
+    if (route.params?.action_url) {
+      setTempUrl(route.params.action_url);
+    } else {
+      setTempUrl(undefined);
+    }
+  }, [route.params])
+
   const checkFCMToken = async () => {
     const token = await messaging().getToken();
-    console.log('token', token);
     await apiInstance.post(PUSH_NOTIFICATION_STORE_TOKEN_API_URL, {
       fcm_token: token
     }, {
@@ -47,15 +54,25 @@ const App = ({ global: globalProps, ...props }) => {
 
   const bootAll = async () => {
     if (PUSH_NOTIFICATION_ENABLED) {
-      PushNotification.checkPermissions(console.log) //Check permissions
-      await requestNotifications(["alert"])
-      await messaging().requestPermission();
-      checkFCMToken();
-      messaging().setBackgroundMessageHandler(async (message) => {
-        Alert.alert('new message', JSON.stringify(message));
-      })
+      PushNotification.popInitialNotification();
+      PushNotification.requestPermissions(['alert', 'badge', 'sound']);
+      // PushNotification.checkPermissions((res) => console.log('notif permission', res)) //Check permissions
+      await messaging().getInitialNotification()
+      messaging().requestPermission();
+      await checkFCMToken();
     }
-    console.log('booted all platform')
+    console.log('booted all platform');
+
+    switch (Platform.OS) {
+      case 'android':
+        await bootAndroid()
+        break;
+      case 'ios':
+        await bootiOS()
+        break;
+      default:
+        break;
+    }
   }
 
   const onAndroidBackPress = () => {
@@ -72,24 +89,13 @@ const App = ({ global: globalProps, ...props }) => {
       await request(PERMISSIONS.ANDROID.CAMERA);
     }
     if (PUSH_NOTIFICATION_ENABLED) {
-      PushNotification.getChannels(function (channel_ids) {
-        console.log(channel_ids); // ['channel_id_1']
-      });
       PushNotification.createChannel(
         {
           channelId: "push-notification-1", // (required)
           channelName: "push-notification-1", // (required)
-          // channelDescription: "A channel to categorise your notifications", // (optional) default: undefined.
-          // playSound: false, // (optional) default: true
-          // soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
-          // importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
-          // vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
         },
         (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
       );
-      messaging().onMessage(async (message) => {
-        showNotification(message.notification);
-      })
     }
     console.log('booted for android')
   }
@@ -106,18 +112,6 @@ const App = ({ global: globalProps, ...props }) => {
 
   useEffect(() => {
     bootAll();
-
-    switch (Platform.OS) {
-      case 'android':
-        bootAndroid()
-        break;
-      case 'ios':
-        bootiOS()
-        break;
-      default:
-        break;
-    }
-
     return () => Platform.select({
       android: () => {
         BackHandler.removeEventListener('hardwareBackPress');
@@ -146,51 +140,43 @@ const App = ({ global: globalProps, ...props }) => {
     globalActions.setState({ cookies });
   };
 
-  const showNotification = (notification) => {
-    console.log('got notification', notification);
-    Alert.alert('got notification', JSON.stringify(notification) ?? "undefined")
-    PushNotification.localNotification({
-      title: notification.title,
-      message: notification.body ?? "",
-      channelId: "push-notification-1"
-    });
-  };
-
   return (
-    <WebView
-      ref={webViewRef}
-      source={{
-        uri: `${APP_URL}`,
-        headers: {
-          Cookie: cookiesHelper.toString(globalProps.cookies),
-        },
-      }}
-      cacheEnabled={true}
-      cacheMode="LOAD_CACHE_ELSE_NETWORK"
-      bounces={false}
-      useWebView2
-      allowsBackForwardNavigationGestures
-      allowFileAccess
-      allowsInlineMediaPlayback
-      scalesPageToFit
-      useWebKit
-      sharedCookiesEnabled
-      startInLoadingState
-      javaScriptEnabled={true}
-      domStorageEnabled={true}
-      renderLoading={() => (
-        <View style={{ width: viewport.width, height: viewport.height, alignItems: 'center', justifyContent: 'center' }}>
-          <Grid />
-        </View>
-      )}
-      onLoadEnd={onLoadEnd}
-      style={StyleSheet.absoluteFillObject}
-      onMessage={webViewLocalStorage.handleOnMessage}
-      injectedJavaScript={initScript}
-      onNavigationStateChange={(navState) => { webViewRef.current.canGoBack = navState.canGoBack; }}
-      pullToRefreshEnabled
-      setBuiltInZoomControls={false}
-    />
+    <>
+      <WebView
+        ref={webViewRef}
+        source={{
+          uri: `${tempUrl ?? APP_URL}`,
+          headers: {
+            Cookie: cookiesHelper.toString(globalProps.cookies),
+          },
+        }}
+        cacheEnabled={true}
+        cacheMode="LOAD_CACHE_ELSE_NETWORK"
+        bounces={false}
+        useWebView2
+        allowsBackForwardNavigationGestures
+        allowFileAccess
+        allowsInlineMediaPlayback
+        scalesPageToFit
+        useWebKit
+        sharedCookiesEnabled
+        startInLoadingState
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        renderLoading={() => (
+          <View style={{ width: viewport.width, height: viewport.height, alignItems: 'center', justifyContent: 'center' }}>
+            <Grid />
+          </View>
+        )}
+        onLoadEnd={onLoadEnd}
+        style={StyleSheet.absoluteFillObject}
+        onMessage={webViewLocalStorage.handleOnMessage}
+        injectedJavaScript={initScript}
+        onNavigationStateChange={(navState) => { webViewRef.current.canGoBack = navState.canGoBack; }}
+        pullToRefreshEnabled
+        setBuiltInZoomControls={false}
+      />
+    </>
   );
 }
 
