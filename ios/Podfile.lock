@@ -400,7 +400,7 @@ PODS:
     - React-Core
   - RNPermissions (3.6.1):
     - React-Core
-  - RNReanimated (2.9.1):
+  - RNReanimated (3.0.2):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -430,6 +430,10 @@ PODS:
   - RNScreens (3.14.0):
     - React-Core
     - React-RCTImage
+  - VisionCamera (2.15.4):
+    - React
+    - React-callinvoker
+    - React-Core
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -496,6 +500,7 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -635,6 +640,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  VisionCamera:
+    :path: "../node_modules/react-native-vision-camera"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -709,10 +716,11 @@ SPEC CHECKSUMS:
   RNFBMessaging: 70bc93859b3952d0985b0d90eb2ed85ec29f5bc0
   RNGestureHandler: bad495418bcbd3ab47017a38d93d290ebd406f50
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
-  RNReanimated: 2cf7451318bb9cc430abeec8d67693f9cf4e039c
+  RNReanimated: 87782e7e1fd44b404cf3cc1bbab266bb9b84a35d
   RNScreens: 4830eb40e0793b38849965cd27f4f3a7d7bc65c1
+  VisionCamera: 5fc30ecebdfd0335d11123ec9511dcbc27ee4046
   Yoga: 7ab6e3ee4ce47d7b789d1cb520163833e515f452
 
-PODFILE CHECKSUM: 2214de98dc649333133845383ef86c94a586aaa5
+PODFILE CHECKSUM: b71ab72d256c6358c175adac8f54ba5b556a1869
 
 COCOAPODS: 1.11.3

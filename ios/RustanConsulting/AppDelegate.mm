@@ -72,7 +72,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 #endif
 
   NSDictionary *initProps = [self prepareInitialProps];
-  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"webview", initProps);
+  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"RustanConsulting", initProps);
 
   if (@available(iOS 13.0, *)) {
     rootView.backgroundColor = [UIColor systemBackgroundColor];
