@@ -11,6 +11,7 @@ AXIOS.interceptors.response.use(
   (response: AxiosResponse) => {
     if (__DEV__) {
       console.log('*** axios response ***');
+      console.log('url:', response.config.url);
       console.log(JSON.stringify(response.data, null, "  "));
       console.log('*** axios response ***');
     }

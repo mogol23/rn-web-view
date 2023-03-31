@@ -16,6 +16,7 @@ const App = ({ global: globalProps, route, ...props }) => {
   const [tempUrl, setTempUrl] = useState();
   const webViewRef = useRef();
   const [initScript, setInitScript] = useState(webViewLocalStorage.SAVE_FROM_WEB);
+  const [currentUrl, setCurrentUrl] = useState();
   useEffect(() => {
     const allKeys = globalProps?.webview ?? [];
     if (allKeys?.length === 0) {
@@ -40,6 +41,7 @@ const App = ({ global: globalProps, route, ...props }) => {
 
   const checkFCMToken = async () => {
     const token = await messaging().getToken();
+    console.log('cookie', cookiesHelper.toString(globalProps.cookies))
     await apiInstance.post(PUSH_NOTIFICATION_STORE_TOKEN_API_URL, {
       fcm_token: token
     }, {
@@ -122,8 +124,10 @@ const App = ({ global: globalProps, route, ...props }) => {
   const onLoadEnd = async (syntheticEvent) => {
     const domain = url.extractSegments(APP_URL)?.[0];
     let cookies;
+    console.log('current url', currentUrl)
     if (Platform.OS == 'ios') {
       cookies = await CookieManager.getAll(true).then((res) => {
+        console.log('xxx', res)
         const filtered = Object.keys(res).filter(key => {
           return res[key].domain.includes(domain);
         }).reduce((cur, key) => { return Object.assign(cur, { [key]: res[key] }) }, {});
@@ -131,6 +135,7 @@ const App = ({ global: globalProps, route, ...props }) => {
       });
     } else {
       cookies = await CookieManager.get(domain);
+      console.log('xxx', cookies)
     }
 
     if (PUSH_NOTIFICATION_ENABLED) {
@@ -147,7 +152,7 @@ const App = ({ global: globalProps, route, ...props }) => {
         source={{
           uri: `${tempUrl ?? APP_URL}`,
           headers: {
-            Cookie: cookiesHelper.toString(globalProps.cookies),
+            Cookie: globalProps.cookies ? cookiesHelper.toString(globalProps.cookies) : '',
           },
         }}
         cacheEnabled={true}
@@ -159,7 +164,8 @@ const App = ({ global: globalProps, route, ...props }) => {
         allowsInlineMediaPlayback
         scalesPageToFit
         useWebKit
-        sharedCookiesEnabled
+        sharedCookiesEnabled={true}
+        thirdPartyCookiesEnabled={true}
         startInLoadingState
         javaScriptEnabled={true}
         domStorageEnabled={true}
@@ -172,7 +178,10 @@ const App = ({ global: globalProps, route, ...props }) => {
         style={StyleSheet.absoluteFillObject}
         onMessage={webViewLocalStorage.handleOnMessage}
         injectedJavaScript={initScript}
-        onNavigationStateChange={(navState) => { webViewRef.current.canGoBack = navState.canGoBack; }}
+        onNavigationStateChange={(navState) => {
+          webViewRef.current.canGoBack = navState.canGoBack;
+          setCurrentUrl(navState.url);
+        }}
         pullToRefreshEnabled
         setBuiltInZoomControls={false}
       />
