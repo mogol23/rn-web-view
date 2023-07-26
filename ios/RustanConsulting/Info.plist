@@ -36,26 +36,26 @@
 		</dict>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-  <string>Allow app to access your media lib</string>
+  <string>$(PRODUCT_NAME) needs access to your media lib for the app to run properly</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow app to access your camera</string>
+	<string>$(PRODUCT_NAME) needs access to your camera for the app to run properly</string>
 	<key>NSMicrophoneUsageDescription</key>
-  <string>Allow app to access your microphone</string>
+  <string>$(PRODUCT_NAME) needs access to your microphone for the app to run properly</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow app to access your photo library</string>
+	<string>$(PRODUCT_NAME) needs access to your photo library for the app to run properly</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow app to access your photo library</string>
+	<string>$(PRODUCT_NAME) needs access to your photo library for the app to run properly</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-  <string>Allow app to access your location</string>
+  <string>$(PRODUCT_NAME) needs access to your location for the app to run properly</string>
   <key>NSLocationAlwaysUsageDescription</key>
-  <string>Allow app to access your location</string>
+  <string>$(PRODUCT_NAME) needs access to your location for the app to run properly</string>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
   <dict>
     <key>Locate Location</key>
-    <string>Allow app to access your location</string>
+    <string>$(PRODUCT_NAME) needs access to your location for the app to run properly</string>
   </dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-  <string>Allow app to access your location</string>
+  <string>$(PRODUCT_NAME) needs access to your location for the app to run properly</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
