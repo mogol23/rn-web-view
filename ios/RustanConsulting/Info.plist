@@ -38,7 +38,7 @@
 	<key>NSAppleMusicUsageDescription</key>
   <string>$(PRODUCT_NAME) needs access to your media lib for the app to run properly</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your camera for the app to run properly</string>
+	<string>$(PRODUCT_NAME) needs access to your camera for scanning Bar or QR Code</string>
 	<key>NSMicrophoneUsageDescription</key>
   <string>$(PRODUCT_NAME) needs access to your microphone for the app to run properly</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
