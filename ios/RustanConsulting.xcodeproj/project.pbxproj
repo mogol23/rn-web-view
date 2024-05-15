@@ -15,7 +15,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BA118E2B573A75F962F97CFF /* Pods_RustanConsulting_RustanConsultingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2087DE46B9333FB0EC91739B /* Pods_RustanConsulting_RustanConsultingTests.framework */; };
 		D476AD8428E57C49001965D4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D476AD8328E57C49001965D4 /* GoogleService-Info.plist */; };
-		D4A1F0EC29C4FF3500E2CCEC /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A1F0EB29C4FF3400E2CCEC /* logo.png */; };
+		E088AF8F2BF497B5008711A4 /* logo.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E088AF8E2BF497B5008711A4 /* logo.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +32,7 @@
 		00E356EE1AD99517003FC87E /* RustanConsultingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RustanConsultingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* RustanConsultingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RustanConsultingTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* RustanConsulting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RustanConsulting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Rustan Consulting 1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rustan Consulting 1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RustanConsulting/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = RustanConsulting/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RustanConsulting/Images.xcassets; sourceTree = "<group>"; };
@@ -46,8 +46,8 @@
 		C9C5D2867FE7D5D34EC65DDF /* Pods-RustanConsulting-RustanConsultingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RustanConsulting-RustanConsultingTests.debug.xcconfig"; path = "Target Support Files/Pods-RustanConsulting-RustanConsultingTests/Pods-RustanConsulting-RustanConsultingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D433C62028724FF700638404 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		D476AD8328E57C49001965D4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D4A1F0EB29C4FF3400E2CCEC /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		D4A483D92908D0C300CD3A69 /* RustanConsulting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RustanConsulting.entitlements; path = RustanConsulting/RustanConsulting.entitlements; sourceTree = "<group>"; };
+		E088AF8E2BF497B5008711A4 /* logo.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpeg; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EEBE45A00DA01161A5A72878 /* Pods-RustanConsulting-RustanConsultingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RustanConsulting-RustanConsultingTests.release.xcconfig"; path = "Target Support Files/Pods-RustanConsulting-RustanConsultingTests/Pods-RustanConsulting-RustanConsultingTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,7 +92,7 @@
 		13B07FAE1A68108700A75B9A /* RustanConsulting */ = {
 			isa = PBXGroup;
 			children = (
-				D4A1F0EB29C4FF3400E2CCEC /* logo.png */,
+				E088AF8E2BF497B5008711A4 /* logo.jpeg */,
 				D4A483D92908D0C300CD3A69 /* RustanConsulting.entitlements */,
 				D433C62028724FF700638404 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -141,7 +141,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* RustanConsulting.app */,
+				13B07F961A680F5B00A75B9A /* Rustan Consulting 1.app */,
 				00E356EE1AD99517003FC87E /* RustanConsultingTests.xctest */,
 			);
 			name = Products;
@@ -200,7 +200,7 @@
 			);
 			name = RustanConsulting;
 			productName = RustanConsulting;
-			productReference = 13B07F961A680F5B00A75B9A /* RustanConsulting.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Rustan Consulting 1.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -251,9 +251,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4A1F0EC29C4FF3500E2CCEC /* logo.png in Resources */,
 				D476AD8428E57C49001965D4 /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				E088AF8F2BF497B5008711A4 /* logo.jpeg in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,7 +483,7 @@
 				DEVELOPMENT_TEAM = 4N8U8HQWW4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RustanConsulting/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Rustan Consulting";
+				INFOPLIST_KEY_CFBundleDisplayName = "Rustan Consulting 1";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -496,7 +496,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.report.rustanconsulting;
-				PRODUCT_NAME = RustanConsulting;
+				PRODUCT_NAME = "Rustan Consulting 1";
 				PROVISIONING_PROFILE_SPECIFIER = "Ahmad-rustan-prov";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -517,7 +517,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4N8U8HQWW4;
 				INFOPLIST_FILE = RustanConsulting/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Rustan Consulting";
+				INFOPLIST_KEY_CFBundleDisplayName = "Rustan Consulting 1";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -530,7 +530,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.report.rustanconsulting;
-				PRODUCT_NAME = RustanConsulting;
+				PRODUCT_NAME = "Rustan Consulting 1";
 				PROVISIONING_PROFILE_SPECIFIER = "Ahmad-rustan-prov";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
