@@ -65,7 +65,7 @@ const App = ({ global: globalProps, route, ...props }) => {
   };
 
   const bootAll = async () => {
-    if (PUSH_NOTIFICATION_ENABLED) {
+    if (PUSH_NOTIFICATION_ENABLED == 'true') {
       PushNotification.popInitialNotification();
       PushNotification.requestPermissions(['alert', 'badge', 'sound']);
       // PushNotification.checkPermissions((res) => console.log('notif permission', res)) //Check permissions
@@ -97,10 +97,10 @@ const App = ({ global: globalProps, route, ...props }) => {
 
   const bootAndroid = async () => {
     BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
-    if (APP_HAS_CAMERA) {
+    if (APP_HAS_CAMERA == 'true') {
       await request(PERMISSIONS.ANDROID.CAMERA);
     }
-    if (PUSH_NOTIFICATION_ENABLED) {
+    if (PUSH_NOTIFICATION_ENABLED == 'true') {
       PushNotification.createChannel(
         {
           channelId: 'push-notification-1', // (required)
@@ -113,10 +113,10 @@ const App = ({ global: globalProps, route, ...props }) => {
   };
 
   const bootiOS = async () => {
-    if (APP_HAS_CAMERA) {
+    if (APP_HAS_CAMERA == 'true') {
       await request(PERMISSIONS.IOS.CAMERA);
     }
-    if (PUSH_NOTIFICATION_ENABLED) {
+    if (PUSH_NOTIFICATION_ENABLED == 'true') {
       messaging().registerDeviceForRemoteMessages();
     }
     console.log('booted for iOS');
@@ -135,11 +135,11 @@ const App = ({ global: globalProps, route, ...props }) => {
   const onLoadEnd = async syntheticEvent => {
     const domain = url.extractSegments(APP_URL)?.[0];
     let cookies;
-    console.log('current url', currentUrl);
-    console.log('domain', domain);
+    // console.log('current url', currentUrl);
+    // console.log('domain', domain);
     if (Platform.OS == 'ios') {
       cookies = await CookieManager.getAll(true).then(res => {
-        console.log('cookies', res);
+        // console.log('cookies', res);
         const filtered = Object.keys(res)
           .filter(key => {
             return res[key].domain.includes(domain);
@@ -154,7 +154,7 @@ const App = ({ global: globalProps, route, ...props }) => {
       console.log('cookies', cookies);
     }
 
-    if (PUSH_NOTIFICATION_ENABLED) {
+    if (PUSH_NOTIFICATION_ENABLED == 'true') {
       checkFCMToken();
     }
 
@@ -167,11 +167,11 @@ const App = ({ global: globalProps, route, ...props }) => {
         ref={webViewRef}
         source={{
           uri: `${tempUrl ?? APP_URL}`,
-          headers: {
-            Cookie: globalProps.cookies
-              ? cookiesHelper.toString(globalProps.cookies)
-              : '',
-          },
+          // headers: {
+          //   Cookie: globalProps.cookies
+          //     ? cookiesHelper.toString(globalProps.cookies)
+          //     : '',
+          // },
         }}
         cacheEnabled={true}
         cacheMode="LOAD_CACHE_ELSE_NETWORK"
@@ -199,7 +199,7 @@ const App = ({ global: globalProps, route, ...props }) => {
           </View>
         )}
         onLoadEnd={onLoadEnd}
-        style={StyleSheet.absoluteFillObject}
+        style={[StyleSheet.absoluteFillObject, {marginTop:30}]}
         onMessage={webViewLocalStorage.handleOnMessage}
         injectedJavaScript={initScript}
         onNavigationStateChange={navState => {
