@@ -477,10 +477,12 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RustanConsulting/RustanConsulting.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4N8U8HQWW4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4N8U8HQWW4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RustanConsulting/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rustan Consulting 1";
@@ -489,7 +491,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -497,7 +499,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.report.rustanconsulting;
 				PRODUCT_NAME = "Rustan Consulting 1";
-				PROVISIONING_PROFILE_SPECIFIER = "Ahmad-rustan-prov";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ios-distribution";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -512,10 +515,12 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = RustanConsulting/RustanConsulting.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4N8U8HQWW4;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4N8U8HQWW4;
 				INFOPLIST_FILE = RustanConsulting/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Rustan Consulting 1";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -523,7 +528,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -531,7 +536,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.report.rustanconsulting;
 				PRODUCT_NAME = "Rustan Consulting 1";
-				PROVISIONING_PROFILE_SPECIFIER = "Ahmad-rustan-prov";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "ios-distribution";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
