@@ -9,7 +9,7 @@ import { store, storePersisted } from './redux';
 import { navigationRef, navigate } from './navigations/hooks';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
-
+import messaging from '@react-native-firebase/messaging';
 
 // Must be outside of any component LifeCycle (such as `componentDidMount`).
 PushNotification.configure({
@@ -87,6 +87,10 @@ PushNotification.configure({
   requestPermissions: true,
 });
 
+// Register background handler
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
 
 export default () => {
   return (
