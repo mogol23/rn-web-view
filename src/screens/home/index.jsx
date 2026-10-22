@@ -1,4 +1,5 @@
 import {
+  APP_HAS_CAMERA,
   APP_URL,
   PUSH_NOTIFICATION_ENABLED,
   PUSH_NOTIFICATION_STORE_TOKEN_API_URL,
@@ -96,7 +97,12 @@ const App = ({global: globalProps, route}) => {
     }
   };
 
+  const cameraEnabled = APP_HAS_CAMERA === 'true';
+
   const requestCameraAccess = async () => {
+    if (!cameraEnabled) {
+      return;
+    }
     const permissions =
       Platform.OS === 'ios'
         ? [PERMISSIONS.IOS.CAMERA, PERMISSIONS.IOS.MICROPHONE]
@@ -159,12 +165,19 @@ const App = ({global: globalProps, route}) => {
   };
 
   const onPermissionRequest = request => {
-    // Always grant WebView media capture so the hosted web app can use the camera when needed.
     const resources = request?.nativeEvent?.resources ?? request?.resources ?? [];
-    if (typeof request?.grant === 'function') {
-      request.grant(resources);
+    if (cameraEnabled) {
+      if (typeof request?.grant === 'function') {
+        request.grant(resources);
+      } else {
+        request?.nativeEvent?.grant?.(resources);
+      }
+      return;
+    }
+    if (typeof request?.deny === 'function') {
+      request.deny();
     } else {
-      request?.nativeEvent?.grant?.(resources);
+      request?.nativeEvent?.deny?.();
     }
   };
 
@@ -187,7 +200,7 @@ const App = ({global: globalProps, route}) => {
       allowFileAccess
       allowsInlineMediaPlayback
       mediaPlaybackRequiresUserAction={false}
-      mediaCapturePermissionGrantType="grant"
+      mediaCapturePermissionGrantType={cameraEnabled ? 'grant' : 'deny'}
       scalesPageToFit
       sharedCookiesEnabled
       thirdPartyCookiesEnabled
