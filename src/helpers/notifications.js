@@ -2,7 +2,14 @@ import notifee, {
   AndroidImportance,
   EventType,
 } from '@notifee/react-native';
-import messaging from '@react-native-firebase/messaging';
+import {
+  AuthorizationStatus,
+  getInitialNotification,
+  getMessaging,
+  onNotificationOpenedApp,
+  registerDeviceForRemoteMessages,
+  requestPermission,
+} from '@react-native-firebase/messaging';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {navigate} from '../navigations/hooks';
 
@@ -36,14 +43,14 @@ export async function requestNotificationPermission() {
     );
   }
 
-  const authStatus = await messaging().requestPermission({
+  const authStatus = await requestPermission(getMessaging(), {
     alert: true,
     badge: true,
     sound: true,
   });
   return (
-    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-    authStatus === messaging.AuthorizationStatus.PROVISIONAL
+    authStatus === AuthorizationStatus.AUTHORIZED ||
+    authStatus === AuthorizationStatus.PROVISIONAL
   );
 }
 
@@ -92,17 +99,17 @@ export async function displayRemoteMessage(remoteMessage) {
 }
 
 export function registerNotificationOpenHandlers() {
-  messaging().onNotificationOpenedApp(remoteMessage => {
+  const messaging = getMessaging();
+
+  onNotificationOpenedApp(messaging, remoteMessage => {
     openFromNotificationData(remoteMessage?.data);
   });
 
-  messaging()
-    .getInitialNotification()
-    .then(remoteMessage => {
-      if (remoteMessage?.data) {
-        openFromNotificationData(remoteMessage.data);
-      }
-    });
+  getInitialNotification(messaging).then(remoteMessage => {
+    if (remoteMessage?.data) {
+      openFromNotificationData(remoteMessage.data);
+    }
+  });
 
   return notifee.onForegroundEvent(({type, detail}) => {
     if (type === EventType.PRESS) {
@@ -115,7 +122,7 @@ export async function bootstrapPushNotifications() {
   await ensureAndroidChannel();
   await requestNotificationPermission();
   if (Platform.OS === 'ios') {
-    await messaging().registerDeviceForRemoteMessages();
+    await registerDeviceForRemoteMessages(getMessaging());
   }
 }
 

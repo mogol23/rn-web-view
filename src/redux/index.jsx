@@ -1,6 +1,6 @@
 import {applyMiddleware, compose, legacy_createStore as createStore} from 'redux';
 import {persistStore} from 'redux-persist';
-import thunkMiddleware from 'redux-thunk';
+import {thunk as thunkMiddleware} from 'redux-thunk';
 import monitorReducersEnhancer from './enhancers/monitorReducers';
 import loggerMiddleware from './middleware/logger';
 import rootReducer from './reducers';

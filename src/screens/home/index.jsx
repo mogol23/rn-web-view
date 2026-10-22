@@ -3,7 +3,7 @@ import {
   PUSH_NOTIFICATION_ENABLED,
   PUSH_NOTIFICATION_STORE_TOKEN_API_URL,
 } from '@env';
-import messaging from '@react-native-firebase/messaging';
+import {getMessaging, getToken} from '@react-native-firebase/messaging';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   ActivityIndicator,
@@ -72,7 +72,7 @@ const App = ({global: globalProps, route}) => {
       return;
     }
     try {
-      const token = await messaging().getToken();
+      const token = await getToken(getMessaging());
       const hostname = url.extractHostname(APP_URL);
       const cookieHeader = cookiesHelper.toHeaderString(
         cookiesHelper.cookiesForHostname(globalProps?.cookieJar, hostname),
