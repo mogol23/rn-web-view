@@ -1,4 +1,4 @@
-import { reduxAction } from '../../constans';
+import {reduxAction} from '../../constans';
 
 const {
   GLOBAL_FETCH_START,
@@ -10,7 +10,10 @@ const {
 const initialState = {
   fetching: false,
   onboard: false,
-  cookies: null
+  /** @type {Record<string, Record<string, object>>} hostname -> cookie name -> cookie */
+  cookieJar: {},
+  /** @type {Array<{origin: string, key: string, value: string}>} */
+  webviewStorage: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -25,11 +28,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         fetching: false,
       };
-    case GLOBAL_SET_STATE:
+    case GLOBAL_SET_STATE: {
+      const {type, ...data} = action;
       return {
         ...state,
-        ...action,
+        ...data,
       };
+    }
     case GLOBAL_RESET_STATE:
       return initialState;
     default:

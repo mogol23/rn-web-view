@@ -1,41 +1,41 @@
 import {
-  APP_HAS_CAMERA,
   APP_URL,
   PUSH_NOTIFICATION_ENABLED,
   PUSH_NOTIFICATION_STORE_TOKEN_API_URL,
 } from '@env';
-import CookieManager from '@react-native-cookies/cookies';
 import messaging from '@react-native-firebase/messaging';
-import React, { useEffect, useRef, useState } from 'react';
-import { BackHandler, Platform, StyleSheet, View } from 'react-native';
-import { Grid } from 'react-native-animated-spinkit';
-import { PERMISSIONS, request } from 'react-native-permissions';
-import PushNotification from 'react-native-push-notification';
-import { WebView } from 'react-native-webview';
-import { connect } from 'react-redux';
-import { cookies as cookiesHelper, url, viewport } from '../../helpers';
-import { globalActions } from '../../redux/actions';
-import { apiInstance, webViewLocalStorage } from '../../utils';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {
+  ActivityIndicator,
+  BackHandler,
+  Platform,
+  StyleSheet,
+  View,
+} from 'react-native';
+import {PERMISSIONS, requestMultiple} from 'react-native-permissions';
+import {WebView} from 'react-native-webview';
+import {connect} from 'react-redux';
+import {cookies as cookiesHelper, url, viewport} from '../../helpers';
+import {bootstrapPushNotifications} from '../../helpers/notifications';
+import {globalActions} from '../../redux/actions';
+import {apiInstance, webViewLocalStorage} from '../../utils';
 
-const App = ({ global: globalProps, route, ...props }) => {
+const App = ({global: globalProps, route}) => {
+  const webViewRef = useRef(null);
   const [tempUrl, setTempUrl] = useState();
-  const webViewRef = useRef();
-  const [initScript, setInitScript] = useState(
-    webViewLocalStorage.SAVE_FROM_WEB,
-  );
-  const [currentUrl, setCurrentUrl] = useState();
-  useEffect(() => {
-    const allKeys = globalProps?.webview ?? [];
-    if (allKeys?.length === 0) {
-      setInitScript(webViewLocalStorage.SAVE_FROM_WEB);
-    } else {
-      const SAVE_FROM_RN = `(function() {
-        ${allKeys.map(n => `localStorage.setItem(${n.key}, ${n.value});`)}
-      })();`;
+  const [currentUrl, setCurrentUrl] = useState(APP_URL);
+  const [cookiesReady, setCookiesReady] = useState(false);
 
-      setInitScript(SAVE_FROM_RN);
-    }
-  }, [globalProps]);
+  const activeUrl = tempUrl ?? APP_URL;
+  const activeOrigin = url.extractOrigin(activeUrl);
+
+  const beforeContentScript = useMemo(() => {
+    const entries = webViewLocalStorage.entriesForOrigin(
+      globalProps?.webviewStorage,
+      activeOrigin,
+    );
+    return webViewLocalStorage.buildRestoreScript(entries);
+  }, [globalProps?.webviewStorage, activeOrigin]);
 
   useEffect(() => {
     if (route.params?.action_url) {
@@ -45,175 +45,187 @@ const App = ({ global: globalProps, route, ...props }) => {
     }
   }, [route.params]);
 
+  useEffect(() => {
+    let cancelled = false;
+    setCookiesReady(false);
+    (async () => {
+      try {
+        const jar = globalActions.getState()?.cookieJar;
+        await cookiesHelper.restoreJarForUrl(jar, activeUrl);
+      } catch (error) {
+        if (__DEV__) {
+          console.warn('cookie restore failed', error);
+        }
+      } finally {
+        if (!cancelled) {
+          setCookiesReady(true);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [activeUrl]);
+
   const checkFCMToken = async () => {
-    const token = await messaging().getToken();
-    console.log('cookie', cookiesHelper.toString(globalProps.cookies));
-    await apiInstance.post(
-      PUSH_NOTIFICATION_STORE_TOKEN_API_URL,
-      {
-        fcm_token: token,
-      },
-      {
-        withCredentials: false,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Cookie: cookiesHelper.toString(globalProps.cookies),
-        },
-      },
-    );
-  };
-
-  const bootAll = async () => {
-    if (PUSH_NOTIFICATION_ENABLED == 'true') {
-      PushNotification.popInitialNotification();
-      PushNotification.requestPermissions(['alert', 'badge', 'sound']);
-      // PushNotification.checkPermissions((res) => console.log('notif permission', res)) //Check permissions
-      await messaging().getInitialNotification();
-      messaging().requestPermission();
-      await checkFCMToken();
+    if (PUSH_NOTIFICATION_ENABLED !== 'true') {
+      return;
     }
-    console.log('booted all platform');
-
-    switch (Platform.OS) {
-      case 'android':
-        await bootAndroid();
-        break;
-      case 'ios':
-        await bootiOS();
-        break;
-      default:
-        break;
-    }
-  };
-
-  const onAndroidBackPress = () => {
-    if (webViewRef.current && webViewRef.current.canGoBack) {
-      webViewRef.current.goBack();
-      return true;
-    }
-    return false;
-  };
-
-  const bootAndroid = async () => {
-    BackHandler.addEventListener('hardwareBackPress', onAndroidBackPress);
-    if (APP_HAS_CAMERA == 'true') {
-      await request(PERMISSIONS.ANDROID.CAMERA);
-    }
-    if (PUSH_NOTIFICATION_ENABLED == 'true') {
-      PushNotification.createChannel(
-        {
-          channelId: 'push-notification-1', // (required)
-          channelName: 'push-notification-1', // (required)
-        },
-        created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+    try {
+      const token = await messaging().getToken();
+      const hostname = url.extractHostname(APP_URL);
+      const cookieHeader = cookiesHelper.toHeaderString(
+        cookiesHelper.cookiesForHostname(globalProps?.cookieJar, hostname),
       );
+      await apiInstance.post(
+        PUSH_NOTIFICATION_STORE_TOKEN_API_URL,
+        {fcm_token: token},
+        {
+          withCredentials: false,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            ...(cookieHeader ? {Cookie: cookieHeader} : {}),
+          },
+        },
+      );
+    } catch (error) {
+      if (__DEV__) {
+        console.warn('store FCM token failed', error);
+      }
     }
-    console.log('booted for android');
   };
 
-  const bootiOS = async () => {
-    if (APP_HAS_CAMERA == 'true') {
-      await request(PERMISSIONS.IOS.CAMERA);
-    }
-    if (PUSH_NOTIFICATION_ENABLED == 'true') {
-      messaging().registerDeviceForRemoteMessages();
-    }
-    console.log('booted for iOS');
+  const requestCameraAccess = async () => {
+    const permissions =
+      Platform.OS === 'ios'
+        ? [PERMISSIONS.IOS.CAMERA, PERMISSIONS.IOS.MICROPHONE]
+        : [PERMISSIONS.ANDROID.CAMERA, PERMISSIONS.ANDROID.RECORD_AUDIO];
+    await requestMultiple(permissions);
   };
 
   useEffect(() => {
-    bootAll();
-    return () =>
-      Platform.select({
-        android: () => {
-          BackHandler.removeEventListener('hardwareBackPress');
-        },
-      });
+    const boot = async () => {
+      await requestCameraAccess();
+      if (PUSH_NOTIFICATION_ENABLED === 'true') {
+        await bootstrapPushNotifications();
+        await checkFCMToken();
+      }
+    };
+    boot();
+
+    const onAndroidBackPress = () => {
+      if (webViewRef.current?.canGoBack) {
+        webViewRef.current.goBack();
+        return true;
+      }
+      return false;
+    };
+
+    const sub = BackHandler.addEventListener(
+      'hardwareBackPress',
+      onAndroidBackPress,
+    );
+    return () => sub.remove();
   }, []);
 
-  const onLoadEnd = async syntheticEvent => {
-    const domain = url.extractSegments(APP_URL)?.[0];
-    let cookies;
-    // console.log('current url', currentUrl);
-    // console.log('domain', domain);
-    if (Platform.OS == 'ios') {
-      cookies = await CookieManager.getAll(true).then(res => {
-        // console.log('cookies', res);
-        const filtered = Object.keys(res)
-          .filter(key => {
-            return res[key].domain.includes(domain);
-          })
-          .reduce((cur, key) => {
-            return Object.assign(cur, { [key]: res[key] });
-          }, {});
-        return filtered;
-      });
-    } else {
-      cookies = await CookieManager.get(domain);
-      console.log('cookies', cookies);
+  const onLoadEnd = async () => {
+    try {
+      const {hostname, cookies} = await cookiesHelper.readCookiesForUrl(
+        currentUrl || activeUrl,
+      );
+      if (hostname && Object.keys(cookies).length > 0) {
+        globalActions.setState({
+          cookieJar: cookiesHelper.mergeDomainCookies(
+            globalProps?.cookieJar,
+            hostname,
+            cookies,
+          ),
+        });
+      }
+    } catch (error) {
+      if (__DEV__) {
+        console.warn('cookie read failed', error);
+      }
     }
 
-    if (PUSH_NOTIFICATION_ENABLED == 'true') {
+    if (PUSH_NOTIFICATION_ENABLED === 'true') {
       checkFCMToken();
     }
 
-    globalActions.setState({ cookies });
+    webViewRef.current?.injectJavaScript(
+      webViewLocalStorage.DOCUMENT_COOKIE_SCRIPT,
+    );
   };
 
+  const onPermissionRequest = request => {
+    // Always grant WebView media capture so the hosted web app can use the camera when needed.
+    const resources = request?.nativeEvent?.resources ?? request?.resources ?? [];
+    if (typeof request?.grant === 'function') {
+      request.grant(resources);
+    } else {
+      request?.nativeEvent?.grant?.(resources);
+    }
+  };
+
+  if (!cookiesReady) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
-    <>
-      <WebView
-        ref={webViewRef}
-        source={{
-          uri: `${tempUrl ?? APP_URL}`,
-          // headers: {
-          //   Cookie: globalProps.cookies
-          //     ? cookiesHelper.toString(globalProps.cookies)
-          //     : '',
-          // },
-        }}
-        cacheEnabled={true}
-        cacheMode="LOAD_CACHE_ELSE_NETWORK"
-        bounces={false}
-        useWebView2
-        allowsBackForwardNavigationGestures
-        allowFileAccess
-        allowsInlineMediaPlayback
-        scalesPageToFit
-        useWebKit
-        sharedCookiesEnabled={false}
-        thirdPartyCookiesEnabled={true}
-        startInLoadingState
-        javaScriptEnabled={true}
-        domStorageEnabled={true}
-        renderLoading={() => (
-          <View
-            style={{
-              width: viewport.width,
-              height: viewport.height,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Grid />
-          </View>
-        )}
-        onLoadEnd={onLoadEnd}
-        style={[StyleSheet.absoluteFillObject, {marginTop:30}]}
-        onMessage={webViewLocalStorage.handleOnMessage}
-        injectedJavaScript={initScript}
-        onNavigationStateChange={navState => {
+    <WebView
+      ref={webViewRef}
+      source={{uri: activeUrl}}
+      cacheEnabled
+      cacheMode="LOAD_CACHE_ELSE_NETWORK"
+      bounces={false}
+      allowsBackForwardNavigationGestures
+      allowFileAccess
+      allowsInlineMediaPlayback
+      mediaPlaybackRequiresUserAction={false}
+      mediaCapturePermissionGrantType="grant"
+      scalesPageToFit
+      sharedCookiesEnabled
+      thirdPartyCookiesEnabled
+      startInLoadingState
+      javaScriptEnabled
+      domStorageEnabled
+      onPermissionRequest={onPermissionRequest}
+      renderLoading={() => (
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" />
+        </View>
+      )}
+      onLoadEnd={onLoadEnd}
+      style={[StyleSheet.absoluteFillObject, {marginTop: 30}]}
+      onMessage={webViewLocalStorage.handleOnMessage}
+      injectedJavaScriptBeforeContentLoaded={beforeContentScript}
+      onNavigationStateChange={navState => {
+        if (webViewRef.current) {
           webViewRef.current.canGoBack = navState.canGoBack;
-          setCurrentUrl(navState.url);
-        }}
-        pullToRefreshEnabled
-        setBuiltInZoomControls={false}
-      />
-    </>
+        }
+        setCurrentUrl(navState.url);
+      }}
+      pullToRefreshEnabled
+      setBuiltInZoomControls={false}
+    />
   );
 };
 
-const mapStateToProps = ({ global }) => ({
+const styles = StyleSheet.create({
+  loader: {
+    width: viewport.width,
+    height: viewport.height,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const mapStateToProps = ({global}) => ({
   global,
 });
 

@@ -6,7 +6,7 @@ const Stack = createNativeStackNavigator();
 
 const Index = () => {
   return (
-    <Stack.Navigator initialRouteName="Home" headerMode="screen">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={Home}
