@@ -1,125 +1,33 @@
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
 
-platform :ios, '12.4'
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
 
-install! 'cocoapods', :deterministic_uuids => false
+# Required by @react-native-firebase with use_frameworks
+$RNFirebaseAsStaticFramework = true
+
+linkage = ENV['USE_FRAMEWORKS'] || 'static'
+Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+use_frameworks! :linkage => linkage.to_sym
 
 target 'RustanConsulting' do
-  use_frameworks! :linkage => :static
-  $RNFirebaseAsStaticFramework = true
-  
   config = use_native_modules!
-  # Convert all permission pods into static libraries
-  pre_install do |installer|
-    Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
-
-    installer.pod_targets.each do |pod|
-      if pod.name.eql?('RNPermissions') || pod.name.start_with?('Permission-')
-        def pod.build_type;
-          # Uncomment the line corresponding to your CocoaPods version
-          Pod::BuildType.static_library # >= 1.9
-          # Pod::Target::BuildType.static_library # < 1.9
-        end
-      end
-    end
-  end
-
-  permissions_path = '../node_modules/react-native-permissions/ios'
-
-  # pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
-  # pod 'Permission-BluetoothPeripheral', :path => "#{permissions_path}/BluetoothPeripheral"
-  # pod 'Permission-Calendars', :path => "#{permissions_path}/Calendars"
-  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
-  # pod 'Permission-Contacts', :path => "#{permissions_path}/Contacts"
-  # pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID"
-  # pod 'Permission-LocationAccuracy', :path => "#{permissions_path}/LocationAccuracy"
-  pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
-  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
-  pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary"
-  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
-  # pod 'Permission-Motion', :path => "#{permissions_path}/Motion"
-  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
-  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
-  pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
-  # pod 'Permission-Reminders', :path => "#{permissions_path}/Reminders"
-  # pod 'Permission-Siri', :path => "#{permissions_path}/Siri"
-  # pod 'Permission-SpeechRecognition', :path => "#{permissions_path}/SpeechRecognition"
-  # pod 'Permission-StoreKit', :path => "#{permissions_path}/StoreKit"
-
-  # Flags change depending on the env values.
-  flags = get_default_flags()
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => flags[:hermes_enabled],
-    :fabric_enabled => flags[:fabric_enabled],
-    # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'RustanConsultingTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
-  # Enables Flipper.
-  #
-  # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable the next line.
-  # use_flipper!()
-
   post_install do |installer|
-    react_native_post_install(installer)
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
-    
-    installer.target_installation_results.pod_target_installation_results.each do |pod_name, target_installation_result|
-      target_installation_result.native_target.build_configurations.each do |config|
-        # For third party modules who have React-bridging dependency to search correct headers
-        config.build_settings['HEADER_SEARCH_PATHS'] ||= '$(inherited) '
-        config.build_settings['HEADER_SEARCH_PATHS'] << '"$(PODS_ROOT)/Headers/Private/React-bridging/react/bridging" '
-        config.build_settings['HEADER_SEARCH_PATHS'] << '"$(PODS_CONFIGURATION_BUILD_DIR)/React-bridging/react_bridging.framework/Headers" '
-      end
-    end
-
-
-    installer.pods_project.targets.each do |target|
-      # https://github.com/facebook/react-native/issues/32451#issuecomment-1028835616
-      if target.name == 'RCT-Folly'
-        target.build_configurations.each do |config|
-          config.build_settings['HEADER_SEARCH_PATHS'] = "$(inherited) ${PODS_ROOT}/fmt/include"
-        end
-      end
-      #https://github.com/react-native-maps/react-native-maps/discussions/4389#discussioncomment-3746174
-      if target.name == 'react-native-google-maps'
-        target.build_configurations.each do |config|
-          config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
-          # paths = Array["\"$(inherited)\"", "\"$(SRCROOT)/Google-Maps-iOS-Utils/src/Heatmap\""]
-          # config.build_settings['HEADER_SEARCH_PATHS'] = paths.uniq
-          # puts config.build_settings['HEADER_SEARCH_PATHS']
-        end
-        target.build_configurations.each do |config|
-          # config.build_settings['ENABLE_BITCODE'] = 'NO'
-          config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-          config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
-        end
-      end
-      #https://github.com/CocoaPods/CocoaPods/issues/11402#issuecomment-1201464693
-      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
-        target.build_configurations.each do |config|
-            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
-        end
-      end
-      # https://stackoverflow.com/a/75926057
-      target.build_configurations.each do |config|
-        config.build_settings['SWIFT_VERSION'] = '5.0'
-        if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] < '12.4'
-          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.4'
-        end
-      end
-    end
-    
-    
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+    )
   end
 end
