@@ -18,12 +18,8 @@ setup_permissions([
   'Notifications',
 ])
 
-# Required by @react-native-firebase with use_frameworks
-$RNFirebaseAsStaticFramework = true
-
-linkage = ENV['USE_FRAMEWORKS'] || 'static'
-Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-use_frameworks! :linkage => linkage.to_sym
+# Dynamic linkage required by @react-native-firebase when using SPM Firebase products.
+use_frameworks! :linkage => :dynamic
 
 target 'RustanConsulting' do
   config = use_native_modules!

@@ -86,3 +86,6 @@ yarn-error.log
 # env (tracked historically; keep ignored for local overrides)
 .env.local
 .env.*.local
+
+vendor/bundle/
+.vendor/
