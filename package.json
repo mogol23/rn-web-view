@@ -59,5 +59,8 @@
   "engines": {
     "node": ">= 22.11.0"
   },
-  "packageManager": "yarn@3.6.4"
+  "packageManager": "yarn@3.6.4",
+  "resolutions": {
+    "@react-native-cookies/cookies@^6.2.1": "patch:@react-native-cookies/cookies@npm%3A6.2.1#./.yarn/patches/@react-native-cookies-cookies-npm-6.2.1-13b1e04ec5.patch"
+  }
 }

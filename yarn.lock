@@ -2758,7 +2758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-cookies/cookies@npm:^6.2.1":
+"@react-native-cookies/cookies@npm:6.2.1":
   version: 6.2.1
   resolution: "@react-native-cookies/cookies@npm:6.2.1"
   dependencies:
@@ -2766,6 +2766,17 @@ __metadata:
   peerDependencies:
     react-native: ">= 0.60.2"
   checksum: 65ec7485952b719191cc3d131b1befdebdb0b422baaf655fd37ad6455ac05582a81b9d7f023ffa375a8787c30d33d1195dea46f633fb6cc09ccd2ae810795ce2
+  languageName: node
+  linkType: hard
+
+"@react-native-cookies/cookies@patch:@react-native-cookies/cookies@npm%3A6.2.1#./.yarn/patches/@react-native-cookies-cookies-npm-6.2.1-13b1e04ec5.patch::locator=RustanConsulting%40workspace%3A.":
+  version: 6.2.1
+  resolution: "@react-native-cookies/cookies@patch:@react-native-cookies/cookies@npm%3A6.2.1#./.yarn/patches/@react-native-cookies-cookies-npm-6.2.1-13b1e04ec5.patch::version=6.2.1&hash=aefda8&locator=RustanConsulting%40workspace%3A."
+  dependencies:
+    invariant: ^2.2.4
+  peerDependencies:
+    react-native: ">= 0.60.2"
+  checksum: e8a0012f3ad71f5dd3e3e2d2532bc68be6337f0c8a48b22503ecc68aae39760795ac31b8fdb04a19205f856e62f5e36d5206fc5c3308b47f66fa0c7c18761391
   languageName: node
   linkType: hard
 
